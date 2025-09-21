@@ -17,9 +17,37 @@ namespace SampleWebApi.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] ProductQueryParameters queryParams)
         {
-            return await _context.Products.ToListAsync();
+            var productsQuery = _context.Products.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(queryParams.Name))
+                productsQuery = productsQuery.Where(p => p.Name.Contains(queryParams.Name));
+
+            if (queryParams.MinPrice.HasValue)
+                productsQuery = productsQuery.Where(p => p.Price >= queryParams.MinPrice.Value);
+
+            if (queryParams.MaxPrice.HasValue)
+                productsQuery = productsQuery.Where(p => p.Price <= queryParams.MaxPrice.Value);
+
+            productsQuery = queryParams.SortBy?.ToLower() switch
+            {
+                "price" => queryParams.Desc
+                    ? productsQuery.OrderByDescending(p => p.Price)
+                    : productsQuery.OrderBy(p => p.Price),
+                _ => queryParams.Desc
+                    ? productsQuery.OrderByDescending(p => p.Name)
+                    : productsQuery.OrderBy(p => p.Name)
+            };
+
+
+            var items = await productsQuery
+        .Skip((queryParams.Page - 1) * queryParams.PageSize)
+        .Take(queryParams.PageSize)
+        .ToListAsync();
+
+            return Ok(items);
+
+            //return await _context.Products.ToListAsync();
         }
         [HttpGet("{id}")]
 
