@@ -1,22 +1,39 @@
-﻿namespace SampleWebApi.Model
+﻿using FluentValidation;
+
+namespace SampleWebApi.Model
 {
-    public class ProductQueryParameters
+    public sealed class ProductQueryParameters
     {
-        private const int MaxPageSize = 50;
-        private int _pageSize = 10;
-
-        public int Page { get; set; } = 1;
-
-        public int PageSize
-        {
-            get => _pageSize;
-            set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
-        }
-
-        public string? Name { get; set; }
+        public string? Search { get; set; }          // name contains
         public decimal? MinPrice { get; set; }
         public decimal? MaxPrice { get; set; }
-        public string? SortBy { get; set; } = "Name";
-        public bool Desc { get; set; } = false;
+        public bool? InStock { get; set; }
+
+        public string? SortBy { get; set; } = "name"; // name|price
+        public bool Desc { get; set; }
+
+        public int Page { get; set; } = 1;
+        public int PageSize { get; set; } = 20;
     }
+
+    public sealed record ProductDto(int Id, string Name, decimal Price, bool InStock, string ETag);
+    public sealed record CreateProductDto(string Name, decimal Price, bool InStock);
+    public sealed record UpdateProductDto(string Name, decimal Price, bool InStock);
+    public class CreateProductValidator : AbstractValidator<CreateProductDto>
+    {
+        public CreateProductValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty().MaximumLength(200);
+            RuleFor(x => x.Price).GreaterThanOrEqualTo(0m);
+        }
+    }
+    public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
+    {
+        public UpdateProductValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty().MaximumLength(200);
+            RuleFor(x => x.Price).GreaterThanOrEqualTo(0m);
+        }
+    }
+
 }
