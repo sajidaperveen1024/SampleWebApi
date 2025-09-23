@@ -18,7 +18,10 @@ namespace SampleWebApi.Db
             modelBuilder.Entity<Product>().HasData(
                 new Product { Id = 1, Name = "Keyboard", Price = 29.99m, InStock = true },
                 new Product { Id = 2, Name = "Mouse", Price = 14.99m, InStock = true },
-                new Product { Id = 3, Name = "Monitor", Price = 199.00m, InStock = false }
+                new Product { Id = 3, Name = "Monitor", Price = 199.00m, InStock = false },
+
+                new Product { Id = 4, Name = "Test", Price = 14.99m, InStock = true },
+                new Product { Id = 5, Name = "Test1", Price = 199.00m, InStock = false }
             );
         }
 
