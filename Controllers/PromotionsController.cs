@@ -7,5 +7,6 @@ namespace SampleWebApi.Controllers
     [ApiController]
     public class PromotionsController : ControllerBase
     {
+
     }
 }
