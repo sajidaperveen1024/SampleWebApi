@@ -7,7 +7,10 @@ namespace SampleWebApi.Controllers
     [ApiController]
     public class PromotionsController : ControllerBase
     {
-
+        public Task<IActionResult> GetPromotions()
+        {
+            return Task.FromResult<IActionResult>(Ok(new[] { "Promotion1", "Promotion2" }));
+        }
 
     }
 }
