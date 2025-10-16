@@ -69,6 +69,9 @@ public class ProductsController : ControllerBase
         return Ok(items);
     }
 
+    public async Task<ActionResult<ProductDto>> Head(int id, CancellationToken ct)
+        => await GetProduct(id, ct);
+
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ProductDto>> GetProduct(int id, CancellationToken ct)
     {
