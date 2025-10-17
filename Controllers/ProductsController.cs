@@ -88,6 +88,7 @@ public class ProductsController : ControllerBase
         return Ok(new ProductDto(p.Id, p.Name, p.Price, p.InStock, etag));
     }
 
+
     [HttpPost]
     public async Task<ActionResult<ProductDto>> CreateProduct(
         [FromBody] CreateProductDto dto,
