@@ -1,7 +1,9 @@
 using SampleWebApi.Db;
 using Microsoft.EntityFrameworkCore;
+using SampleWebApi.Model;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton<BlobService>();
 
 // Add services to the container.// Connect to local SQL Server (later change to Azure SQL)
 builder.Services.AddDbContext<AppDbContext>(options =>
