@@ -33,6 +33,7 @@ namespace SampleWebApi.Model
             var containerClient = blobServiceClient.GetBlobContainerClient(_containerName);
             var blobClient = containerClient.GetBlobClient(fileName);
 
+
             var memoryStream = new MemoryStream();
             await blobClient.DownloadToAsync(memoryStream);
             memoryStream.Position = 0;
