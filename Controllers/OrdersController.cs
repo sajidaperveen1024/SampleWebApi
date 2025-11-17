@@ -7,6 +7,9 @@ namespace SampleWebApi.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
+        public OrdersController() { }
+
+        public int OrdersCount { get; set; }    
 
 
     }
