@@ -24,6 +24,7 @@ namespace SampleWebApi.Controllers
             return Ok("File uploaded successfully.");
         }
 
+
         [HttpGet("download/{fileName}")]
         public async Task<IActionResult> Download(string fileName)
         {
