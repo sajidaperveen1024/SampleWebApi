@@ -24,6 +24,10 @@ namespace SampleWebApi.Controllers
             return Ok("File uploaded successfully.");
         }
 
+        public async Task<IActionResult> FileDetails(IFormFile file)
+        {
+            return Ok();
+        }
 
 
         [HttpGet("download/{fileName}")]
