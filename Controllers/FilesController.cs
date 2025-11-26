@@ -28,6 +28,10 @@ namespace SampleWebApi.Controllers
         {
             return Ok();
         }
+        public async Task<IActionResult> GetAllFiles(IFormFile file)
+        {
+            return null;
+        }
 
 
         [HttpGet("download/{fileName}")]
