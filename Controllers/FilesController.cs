@@ -30,6 +30,12 @@ namespace SampleWebApi.Controllers
         }
         public async Task<IActionResult> GetAllFiles(IFormFile file)
         {
+
+            return null;
+        }
+        public async Task<IActionResult> DeleteAllFiles(IFormFile file)
+        {
+
             return null;
         }
 
