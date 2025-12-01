@@ -33,11 +33,7 @@ namespace SampleWebApi.Controllers
 
             return null;
         }
-        public async Task<IActionResult> DeleteAllFiles(IFormFile file)
-        {
-
-            return null;
-        }
+        
 
 
         [HttpGet("download/{fileName}")]
